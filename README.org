@@ -17,41 +17,7 @@
 Which things do you need?  Run ~which (thing)~ to find out.
 
 * DONE Checkpoint 1
-CLOSED: [2016-09-29 Thu 20:00]
 
 * TODO Checkpoint 2
 
-Thanks, [[https://dba.stackexchange.com/questions/128520/directly-import-a-csv-gziped-file-into-sqlite-3#140197][Stack Overflow]]!  You made this sorta easy!
-
-First, import the tables we care about into the database:
-
-#+name: download-data
-#+begin_src sh :shebang "#!/bin/bash" :results output
-  howMuch=40
-
-  # blow away the previous database.
-  rm project.sqlite
-
-  function makeImport {
-      importCommand=$(mktemp)
-      cat <<EOF > $importCommand
-  .mode tabs $tablename
-  .import /dev/stdin $tablename
-  EOF
-  }
-  function importSnp {
-      tablename=${ncbiFile##*\/}
-      tablename=${tablename%%.*}
-      makeImport
-      wget -qO - $ncbiFile | head -$howMuch | gunzip | sqlite3 --init $importCommand project.sqlite
-  }
-
-  # import the schema!
-  wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz | gunzip | sed -e '/SubSNPOmim/,+4d' | sqlite3 project.sqlite
-
-  # normal import
-  importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SubPopGty.bcp.gz"
-
-#+end_src
-
-#+results: download-data
+Run the ~src/createDb.sh~ file to download the database.
