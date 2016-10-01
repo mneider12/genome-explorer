@@ -16,8 +16,28 @@
 
 Which things do you need?  Run ~which (thing)~ to find out.
 
-* DONE Checkpoint 1
+* Downloading the Database
 
-* TODO Checkpoint 2
+Open up a command window.  In the directory with this README file, run:
 
-Run the ~src/createDb.sh~ file to download the database into the ~bin~ directory.
+: cd genome-explorer
+: sh src/createDb.sh
+
+Or:
+
+: bash src/createDb.sh
+
+That'll  download the database into the ~bin~ directory.
+
+* Checkpoints
+
+** DONE Checkpoint 1
+
+We've created the overview document.
+
+** TODO Checkpoint 2
+
+We need to identify tables and create the ER diagram:
+
+- [ ] Tables identified.
+- [ ] ER diagram created.
