@@ -1,10 +1,37 @@
 #! /usr/bin/env sh
 
-howMuch=40
-dbDir=db
+# lines of data to import.
+# to import entire files, use -0
+howMuch=-0
+
+importTables() {
+# do the normal table import after setting up the database
+    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/Pedigree.bcp.gz"
+}
+
+
+# # # # # # # # # # # # # # # # # #
+# don't change things below here. #
+# # # # # # # # # # # # # # # # # #
+dbDir=bin
 dbFile=$dbDir/project.sqlite
 
-function makeImport {
+#
+# functions
+#
+setup() {
+# blow away the previous database.
+    mkdir -p $dbDir
+    rm $dbFile 2>&1 > /dev/null
+
+    # import the schema!  (exclude the empty table SubSNPOmim that
+    # chokes sqlite.)
+    wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz | \
+        gunzip | \
+        sed -e "/SubSNPOmim/,+4d" | \
+        sqlite3 $dbFile
+}
+makeImport () {
 # create import file to import into correct table name.
     importCommand=$(mktemp)
     cat <<EOF > $importCommand
@@ -12,22 +39,24 @@ function makeImport {
 .import /dev/stdin $tablename
 EOF
 }
-
-function importSnp {
+importSnp () {
 # import a particular table.
     tablename=${1##*\/}
     tablename=${tablename%%.*}
-    echo $tablename
     makeImport
-    wget -qO - $1 | head -$howMuch | gunzip | sqlite3 --init $importCommand $dbFile
+
+    wget -qO - $1 | \
+        gunzip | \
+        head -n $howMuch | \
+        sqlite3 --init $importCommand $dbFile
 }
 
-# blow away the previous database.
-mkdir $dbDir
-rm $dbFile
+#
+# main
+#
 
-# import the schema!
-wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz | gunzip | sed -e '/SubSNPOmim/,+4d' | sqlite3 $dbFile
+# run setup
+setup
 
 # normal import
-importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SubPopGty.bcp.gz"
+importTables
