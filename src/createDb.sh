@@ -6,6 +6,7 @@ howMuch=-0
 
 importTables() {
 # do the normal table import after setting up the database
+    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/shared_data/Allele.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/ClinSigCode.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/Pedigree.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPClinSig.bcp.gz"
