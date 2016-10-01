@@ -24,11 +24,14 @@ setup() {
     mkdir -p $dbDir
     rm $dbFile 2>&1 > /dev/null
 
-    # import the schema!  (exclude the empty table SubSNPOmim that
-    # chokes sqlite.)
+    # import the schemas! exclude the syntax erroring empty table SubSNPOmim.
     wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz | \
         gunzip | \
         sed -e "/SubSNPOmim/,+4d" | \
+        sqlite3 $dbFile
+
+    wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz | \
+        gunzip | \
         sqlite3 $dbFile
 }
 makeImport () {
