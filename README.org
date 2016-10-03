@@ -1,4 +1,4 @@
-﻿# -*- mode: org; mode: org-indent; mode: visual-line -*-
+# -*- mode: org; mode: org-indent; mode: visual-line -*-
 
 #+TITLE: Project README
 #+DATE: 2016-09-30 Fri
@@ -46,34 +46,34 @@ We need to identify tables and create the ER diagram:
 
 ** Schemas (also an index and constraints file in each directory)
 
--- Shared schema ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz
--- Human schema ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz
+- Shared schema ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz
+- Human schema ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz
 
 ** Tables
 
 - All shared tables?   ftp://ftp.ncbi.nih.gov/snp/database/shared_data/
 
 - Basic SNP data
--- SNP - 1.8 GB
--- SNPSubSNPLink - 4.2 GB
--- SubSNP - 7.5 GB
--- Synonym - type and name from subsnp_id
+  - SNP - 1.8 GB
+  - SNPSubSNPLink - 4.2 GB
+  - SubSNP - 7.5 GB
+  - Synonym - type and name from subsnp_id
 
 - Frequency info (lots of different tables with different slices)
--- Allele
--- AlleleFreqBySsPop
--- (SubSNP required)
--- (Population required)
--- GtyFreqBySsPop - This table saves computed genotype frequency per subsnp and population.
--- UniGty
--- SNPAlleleFreq? - This table stores the average allele frequency from snp_id and allele_id. 1.2GB
+  - Allele
+  - AlleleFreqBySsPop
+    - (SubSNP required)
+    - (Population required)
+  - GtyFreqBySsPop: This table saves computed genotype frequency per subsnp and population.
+  - UniGty
+  - SNPAlleleFreq?: This table stores the average allele frequency from snp_id and allele_id. 1.2GB
 
 - Clinical significance and other hopefully interesting info
--- SNPClinSig - Clinical significance of a SNP
--- ClinSigCode - Clinical significance category titles (Benign, Pathogenic, other, etc)
--- SNPPubmed - Links to PubMed ID for published literature on a SNP
+  - SNPClinSig: Clinical significance of a SNP
+  - ClinSigCode: Clinical significance category titles (Benign, Pathogenic, other, etc)
+  - SNPPubmed: Links to PubMed ID for published literature on a SNP
 
 - Population data
--- Population
--- PopLine	- Population description text is stored here line by line
--- UniGty - Genotype
+  - Population
+  - PopLine: Population description text is stored here line by line
+  - UniGty: Genotype
