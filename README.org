@@ -13,6 +13,7 @@
    - sqlite3
 3. Install [[http://sqlitebrowser.org/][SQLite DB Browser]].
 4. Install [[https://tortoisegit.org/][Tortoise Git]].
+5. Install [[http://plantuml.com/][PlantUml]] to [[src/createDiagrams.sh][convert schemas to diagrams]].
 
 Which things do you need?  Run ~which (thing)~ to find out.
 
