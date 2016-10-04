@@ -24,24 +24,45 @@ dbFile=$dbDir/project.sqlite
 #
 # functions
 #
+download() {
+    fileName=${1##*\/}
+
+    echo -n "Downloading ${fileName}... "
+    here=`pwd`
+    cd $dbDir
+    wget -qNc $1
+    cd $here
+    echo "Done."
+}
 setup() {
 # blow away the previous database.
     mkdir -p $dbDir
-    rm $dbFile 2>&1 > /dev/null
+    rm $dbFile* 2>&1 > /dev/null
 
-    # import the schemas! exclude the syntax erroring empty table SubSNPOmim.
-    wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz | \
+    # import the schemas
+    download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz"
+    echo -n "Importing shared schema... "
+    cat "${dbDir}/${fileName}" | \
+        gunzip | \
+        sqlite3 $dbFile
+    echo "Done."
+
+    # exclude the syntax erroring empty table SubSNPOmim.
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz"
+    echo -n "Importing human schema... "
+    cat "${dbDir}/${fileName}" | \
         gunzip | \
         sed -e "/SubSNPOmim/,+4d" | \
         sqlite3 $dbFile
+    echo "Done."
 
-    wget -qO - ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz | \
-        gunzip | \
-        sqlite3 $dbFile
 }
 makeImport () {
 # create import file to import into correct table name.
+    fileName=${1##*\/}
+    tablename=${fileName%%.*}
     importCommand=$(mktemp)
+
     cat <<EOF > $importCommand
 .mode tabs $tablename
 .import /dev/stdin $tablename
@@ -49,14 +70,18 @@ EOF
 }
 importSnp () {
 # import a particular table.
-    tablename=${1##*\/}
-    tablename=${tablename%%.*}
-    makeImport
+    fileName=${1##*\/}
+    tablename=${fileName%%.*}
 
-    wget -qO - $1 | \
+    makeImport $1
+    download $1
+
+    echo -n "Importing $tablename... "
+    cat "${dbDir}/${fileName}" | \
         gunzip | \
         head -n $howMuch | \
         sqlite3 --init $importCommand $dbFile
+    echo "Done."
 }
 
 #
