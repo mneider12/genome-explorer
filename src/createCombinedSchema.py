@@ -14,6 +14,7 @@ Yeesh.
 
 
 import gzip
+import os
 import sys
 
 def readTable(inFile, tables):
@@ -26,9 +27,9 @@ def readTable(inFile, tables):
             if line.startswith("CREATE TABLE"):
                 inTable = 1
                 table = line.split()[-1][1:-1]
+                # XXX XXX [*JustThisPart*]
                 tables[table] = ""
                 continue
-                # XXX XXX [*JustThisPart*]
 
             elif line == ")":
                 inTable = 0
@@ -68,7 +69,6 @@ def readConstraint(inFile, constraints):
 
 def readIndex(inFile, someSql):
     # TODO handle index files.
-    print("TODO: Handle index files.")
     return
 
 
@@ -77,10 +77,11 @@ if __name__ == "__main__":
     tables = {}
     constraints = {}
     indices = {}
+    baseName = sys.argv[1].rpartition("_")[0] + ".sql"
 
+    print("Creating {} schema... ".format(baseName.rpartition(os.sep)[2]), end="")
     for afile in sys.argv[1:]:
         if afile.endswith("_table.sql.gz"):
-            baseName = afile.rstrip("_table.sql.gz") + ".sql"
             tables = readTable(afile, tables)
         elif afile.endswith("_constraint.sql.gz"):
             constraints = readConstraint(afile, constraints)
@@ -89,6 +90,9 @@ if __name__ == "__main__":
 
     with open(baseName, "w") as output:
         for k in tables.keys():
+            if k == "dn_table_rowcount":
+                continue
+
             output.write("""\
 CREATE TABLE [{}]
 (
@@ -104,3 +108,5 @@ CREATE TABLE [{}]
 go
 
 """)
+
+    print("Done.")
