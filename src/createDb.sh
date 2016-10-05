@@ -38,13 +38,11 @@ importSchemas() {
     gzip bin/human_9606_table.sql
 
     # create unified schemas.
-    echo -n "Creating unified schemas... "
     src/createCombinedSchema.py "bin/dbSNP_main_table.sql.gz" "bin/dbSNP_main_constraint.sql.gz" "bin/dbSNP_main_index.sql.gz"
     src/createCombinedSchema.py "bin/human_9606_table.sql.gz" "bin/human_9606_constraint.sql.gz" "bin/human_9606_index.sql.gz"
-src/createCombinedSchema.py "bin/dbSNP_sup_constraint.sql.gz" "bin/dbSNP_sup_index.sql.gz" "bin/dbSNP_sup_table.sql.gz"
-src/createCombinedSchema.py "bin/human_gty1_constraint.sql.gz" "bin/human_gty1_index.sql.gz" "bin/human_gty1_table.sql.gz"
-src/createCombinedSchema.py "bin/human_gty2_constraint.sql.gz" "bin/human_gty2_index.sql.gz" "bin/human_gty2_table.sql.gz"
-    echo "Done."
+    src/createCombinedSchema.py "bin/dbSNP_sup_constraint.sql.gz" "bin/dbSNP_sup_index.sql.gz" "bin/dbSNP_sup_table.sql.gz"
+    src/createCombinedSchema.py "bin/human_gty1_constraint.sql.gz" "bin/human_gty1_index.sql.gz" "bin/human_gty1_table.sql.gz"
+    src/createCombinedSchema.py "bin/human_gty2_constraint.sql.gz" "bin/human_gty2_index.sql.gz" "bin/human_gty2_table.sql.gz"
 
     # import schemas.
     importSchemaFile dbSNP_main.sql
