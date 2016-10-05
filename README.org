@@ -61,17 +61,18 @@ We need to identify tables and create the ER diagram:
   - Synonym - type and name from subsnp_id
 
 - Frequency info (lots of different tables with different slices)
-  - Allele
-  - AlleleFreqBySsPop
-    - (SubSNP required)
-    - (Population required)
+  - Allele - Unique alleles (single nucleotide A, T, C, or G) for a given location in DNA
+  - AlleleFreqBySsPop - Frequency of a given allele (single nucleotide) at a given submitted SNP (SS#) by population
+    - subsnp_id - foreign key to SubSNP table
+    - pop_id - foreign key to Population table
+    - allele_id - foreign key to Allele table
   - GtyFreqBySsPop: This table saves computed genotype frequency per subsnp and population.
-  - UniGty
+    - UniGty required
   - SNPAlleleFreq?: This table stores the average allele frequency from snp_id and allele_id. 1.2GB
 
 - Clinical significance and other hopefully interesting info
   - SNPClinSig: Clinical significance of a SNP
-  - ClinSigCode: Clinical significance category titles (Benign, Pathogenic, other, etc)
+  - ClinSigCode: Clinical significance numeric codes and category titles (Benign, Pathogenic, other, etc)
   - SNPPubmed: Links to PubMed ID for published literature on a SNP
 
 - Population data
