@@ -2,7 +2,7 @@
 
 # lines of data to import.
 # to import entire files, use -0
-howMuch=-0
+howMuch=10000
 
 importTables() {
 # do the normal table import after setting up the database
@@ -16,19 +16,42 @@ importTables() {
 importSchemas() {
     # import the schemas
     # importSchema "ftp://fileName"
-    importSchema "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz"
-
-    # TODO add the index files and whatnot here.
-
+    download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_constraint.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_index.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_constraint.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_index.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/dbSNP_sup_constraint.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/dbSNP_sup_index.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/dbSNP_sup_table.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty1_constraint.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty1_index.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty1_table.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty2_constraint.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty2_index.sql.gz"
+    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty2_table.sql.gz"
 
     # manually exclude the syntax erroring empty table SubSNPOmim.
-    download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_9606_table.sql.gz"
-    echo -n "Importing human schema... "
-    cat "${dbDir}/${fileName}" | \
-        gunzip | \
-        sed -e "/SubSNPOmim/,+4d" | \
-        sqlite3 $dbFile
+    gunzip bin/human_9606_table.sql.gz
+    sed -i -e "/SubSNPOmim/,+4d" bin/human_9606_table.sql
+    gzip bin/human_9606_table.sql
+
+    # create unified schemas.
+    echo -n "Creating unified schemas... "
+    src/createCombinedSchema.py "bin/dbSNP_main_table.sql.gz" "bin/dbSNP_main_constraint.sql.gz" "bin/dbSNP_main_index.sql.gz"
+    src/createCombinedSchema.py "bin/human_9606_table.sql.gz" "bin/human_9606_constraint.sql.gz" "bin/human_9606_index.sql.gz"
+src/createCombinedSchema.py "bin/dbSNP_sup_constraint.sql.gz" "bin/dbSNP_sup_index.sql.gz" "bin/dbSNP_sup_table.sql.gz"
+src/createCombinedSchema.py "bin/human_gty1_constraint.sql.gz" "bin/human_gty1_index.sql.gz" "bin/human_gty1_table.sql.gz"
+src/createCombinedSchema.py "bin/human_gty2_constraint.sql.gz" "bin/human_gty2_index.sql.gz" "bin/human_gty2_table.sql.gz"
     echo "Done."
+
+    # import schemas.
+    importSchemaFile dbSNP_main.sql
+    importSchemaFile dbSNP_sup.sql
+    importSchemaFile human_9606.sql
+    importSchemaFile human_gty1.sql
+    importSchemaFile human_gty2.sql
 }
 
 
@@ -48,10 +71,14 @@ setup() {
 importSchema() {
 # import named schema file from bin directory.
     download $1
-    
+    importSchemaFile $1
+}
+importSchemaFile() {
+# import the file
+    fileName=${1##*\/}
+
     echo -n "Importing schema ${fileName}... "
     cat "${dbDir}/${fileName}" | \
-        gunzip | \
         sqlite3 $dbFile
     echo "Done."
 }
