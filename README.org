@@ -8,9 +8,10 @@
 
 1. Install [[https://cygwin.com/][cygwin]].
 2. Install:
-   - wget
    - gzip
+   - python3
    - sqlite3
+   - wget
 3. Install [[http://sqlitebrowser.org/][SQLite DB Browser]].
 4. Install [[https://tortoisegit.org/][Tortoise Git]].
 5. Install [[http://plantuml.com/][PlantUml]] to [[src/createDiagrams.sh][convert schemas to diagrams]].
