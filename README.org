@@ -33,16 +33,20 @@ That'll  download the database into the ~bin~ directory.
 
 * Checkpoints
 
-** DONE Checkpoint 1
+** DONE Checkpoint 1 - https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing
 
 We've created the overview document.
 
-** TODO Checkpoint 2
+** TODO Checkpoint 2 (due 10/13) - https://docs.google.com/document/d/19jVVghHHxMClzC_J8lViPCmsw4nvFJ-cPNXOxt6plcU/edit?usp=sharing
 
 We need to identify tables and create the ER diagram:
 
 - [ ] Tables identified.
 - [ ] ER diagram created.
+
+** TODO Checkpoint 3 (due 10/27) - https://docs.google.com/document/d/1dYJqh1c9UnNLvgrt5KcjDFYkjHULCN4H0hjT049A4qs/edit?usp=sharing
+
+** TODO Checkpoint 4 (due 11/17) - https://docs.google.com/document/d/11SSkbGrPP14u647pHf5v-dFdvDMoR8HHPd5Uqig1cSY/edit?usp=sharing
 
 * Outline of Schema and Tables
 
