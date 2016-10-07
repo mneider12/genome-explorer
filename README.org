@@ -50,6 +50,8 @@ We need to identify tables and create the ER diagram:
 
 * Outline of Schema and Tables
 
+NCBI table/column data dictionary:  https://www.ncbi.nlm.nih.gov/SNP/snp_db_list_table.cgi
+
 ** Schemas (also an index and constraints file in each directory)
 
 - Shared schema ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz
