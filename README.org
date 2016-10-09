@@ -33,20 +33,29 @@ That'll  download the database into the ~bin~ directory.
 
 * Checkpoints
 
-** DONE Checkpoint 1 - https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing
+** DONE Checkpoint 1
+
+https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing
 
 We've created the overview document.
 
-** TODO Checkpoint 2 (due 10/13) - https://docs.google.com/document/d/19jVVghHHxMClzC_J8lViPCmsw4nvFJ-cPNXOxt6plcU/edit?usp=sharing
+** TODO Checkpoint 2 (due 10/13)
+
+https://docs.google.com/document/d/19jVVghHHxMClzC_J8lViPCmsw4nvFJ-cPNXOxt6plcU/edit?usp=sharing
 
 We need to identify tables and create the ER diagram:
 
-- [ ] Tables identified.
-- [ ] ER diagram created.
+- [X] Tables identified.
+- [X] ER diagram created.
+- [ ] Finish documentation of features, functionality, queries, and UI.
 
-** TODO Checkpoint 3 (due 10/27) - https://docs.google.com/document/d/1dYJqh1c9UnNLvgrt5KcjDFYkjHULCN4H0hjT049A4qs/edit?usp=sharing
+** TODO Checkpoint 3 (due 10/27)
 
-** TODO Checkpoint 4 (due 11/17) - https://docs.google.com/document/d/11SSkbGrPP14u647pHf5v-dFdvDMoR8HHPd5Uqig1cSY/edit?usp=sharing
+https://docs.google.com/document/d/1dYJqh1c9UnNLvgrt5KcjDFYkjHULCN4H0hjT049A4qs/edit?usp=sharing
+
+** TODO Checkpoint 4 (due 11/17)
+
+https://docs.google.com/document/d/11SSkbGrPP14u647pHf5v-dFdvDMoR8HHPd5Uqig1cSY/edit?usp=sharing
 
 * Outline of Schema and Tables
 
@@ -59,30 +68,50 @@ NCBI table/column data dictionary:  https://www.ncbi.nlm.nih.gov/SNP/snp_db_list
 
 ** Tables
 
-- All shared tables?   ftp://ftp.ncbi.nih.gov/snp/database/shared_data/
+- Shared tables   ftp://ftp.ncbi.nih.gov/snp/database/shared_data/
+ - Allele - Unique alleles (single nucleotide A (6), T (4), C (7), or G (2)) for a given location in DNA
+ - UniGty - Genotypes, including both alleles from the two DNA strands at a given location (CC, TA, etc).
+   - unigty_id - Assigned ID for the genotype, integer
+   - gty_str - String representation of the genotype (example:  C/G), text
+   - allele_id_1 - ID of the first allele of the genotype, integer
+   - allele_id_2 - ID of the second allele of the genotype, integer
+   - create_time - Time when the record was created, datetime
 
-- Basic SNP data
-  - SNP - 1.8 GB
-  - SNPSubSNPLink - 4.2 GB
-  - SubSNP - 7.5 GB
-  - Synonym - type and name from subsnp_id
+- Human tables
+ - Basic SNP data
+   - SNP - 1.8 GB
+    - snp_id - Primary key, identifier for the SNP location
+   - SNPSubSNPLink - 4.2 GB
+   - SubSNP - Data for a submitted instance of a SNP.  7.5 GB
+     - subsnp_id - Primary key, the unique ID assigned to a submitted value for a SNP (referred to as ss# in NCBI documentation)
+   - Synonym - type and name from subsnp_id
 
-- Frequency info (lots of different tables with different slices)
-  - Allele - Unique alleles (single nucleotide A, T, C, or G) for a given location in DNA
-  - AlleleFreqBySsPop - Frequency of a given allele (single nucleotide) at a given submitted SNP (SS#) by population
-    - subsnp_id - foreign key to SubSNP table
-    - pop_id - foreign key to Population table
-    - allele_id - foreign key to Allele table
-  - GtyFreqBySsPop: This table saves computed genotype frequency per subsnp and population.
-    - UniGty required
-  - SNPAlleleFreq?: This table stores the average allele frequency from snp_id and allele_id. 1.2GB
+ - Frequency info (lots of different tables with different slices)
+   - SNPAlleleFreq: This table stores the average allele frequency from snp_id and allele_id. 1.2GB
+     - snp_id  - Primary key, identifier for the SNP location, integer
+     - allele_id - Foreign key to Allele table, integer
+     - freq - Frequency of this allele for this SNP, float
+   - SNPGtyFreq - Average genotype frequency for a refSNP(rs#). 249 MB
+     - snp_id - rs#, int
+     - unigty_id - Foreign key to UniGty table, int
+     - ind_cnt - Count of individuals with the genotype specified in unigty_id, float
+     - freq - Frequency of this genotype, float
+     - last_updated_time - datetime
+   - AlleleFreqBySsPop - Frequency of a given allele (single nucleotide) at a given submitted SNP (SS#) by population
+      - subsnp_id - foreign key to SubSNP table
+      - pop_id - foreign key to Population table
+      - allele_id - foreign key to Allele table
+   - GtyFreqBySsPop: This table saves computed genotype frequency per subsnp and population.
+      - subsnp_id
+      - pop_id
+      - unigty_id - UniGty table required
+      - freq
 
-- Clinical significance and other hopefully interesting info
-  - SNPClinSig: Clinical significance of a SNP
-  - ClinSigCode: Clinical significance numeric codes and category titles (Benign, Pathogenic, other, etc)
-  - SNPPubmed: Links to PubMed ID for published literature on a SNP
+ - Clinical significance and other hopefully interesting info
+   - SNPClinSig: Clinical significance of a SNP
+   - ClinSigCode: Clinical significance numeric codes and category titles (Benign, Pathogenic, other, etc)
+   - SNPPubmed: Links to PubMed ID for published literature on a SNP
 
-- Population data
-  - Population
-  - PopLine: Population description text is stored here line by line
-  - UniGty: Genotype
+ - Population data
+   - Population
+   - PopLine: Population description text is stored here line by line
