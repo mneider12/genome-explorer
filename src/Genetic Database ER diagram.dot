@@ -1,0 +1,38 @@
+// Convert with:
+//   neato -Goverlap=prism -Tpng object-relations.dot
+
+graph g {
+	// basic nodes
+	node [style=filled]
+	// entities
+	node [shape=box color=green] SNP PubMedArticles ClinicalSignificance Allele UniGty User
+	// relations
+	node [shape=diamond color=lightgray] SNPAlleleFreq SNPClinSig SNPPubmed UserSNPGenotype
+	
+	// attributes
+	node [shape=ellipse color=lightblue]
+	SNP -- {snp_id avg_heterozygosity het_se create_time_snp last_updated_time_snp CpG_code tax_id validation_status exemplar_subsnp_id univar_id cnt_subsnp}
+	PubMedArticles -- {pubmed_id type score upd_time}
+	ClinicalSignificance -- {code abbrev descrip create_time_clinsig last_updated_time_clinsig severity_level}
+	Allele -- {allele_id allele create_time_allele rev_allele_id src last_updated_time_allele}
+	UniGty -- {unigty_id gty_str allele_id_1 allele_id_2 create_time_unigty}
+	User -- {user_id}
+	
+	SNPAlleleFreq -- {freq}
+	UserSNPGenotype -- {chr_num position}
+		
+	// primary keys (and other custom labels)
+	snp_id [label=<<u>snp_id</u>>]
+	pubmed_id [label=<<u>pubmed_id</u>>]
+	code [label=<<u>code</u>>]
+	allele_id [label=<<u>allele_id</u>>]
+	unigty_id [label=<<u>unigty_id</u>>]
+	user_id [label=<<u>user_id</u>>]
+	
+	// undirected relations
+	SNP -- SNPPubmed -- PubMedArticles
+	ClinicalSignificance -- SNPClinSig -- SNP
+	Allele -- SNPAlleleFreq -- SNP
+	User -- UserSNPGenotype -- UniGty
+	UserSNPGenotype -- SNP
+}
