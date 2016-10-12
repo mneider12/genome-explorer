@@ -31,13 +31,21 @@ Or:
 
 That'll  download the database into the ~bin~ directory.
 
+* Updating the ER Diagram
+
+Open a command window.  In the directory with this README file, run the following.  This will rebuild the .png file in the bin directory.
+
+: sh src/createErDiagram.sh
+
 * Checkpoints
 
-** DONE Checkpoint 1
+** DONE Checkpoint 1 - Grade 30/30
 
 https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing
 
 We've created the overview document.
+
+Feedback from professor:  This is a well-written proposal. The dataset is very well-chosen and tasks are focused enough so that we don't get lost in the size of data. It is very good that you are aware of the gaps in the data which may create challenges in the assessment. For the assessment, I would recommend we define some criteria where the "interesting" traits are defined (my understanding from the write-up: interesting = common trait" while in my thought, interesting = uncommon trait"). Also a set of scenarios with inputs and expected outputs would help us in evaluation.
 
 ** TODO Checkpoint 2 (due 10/13)
 
