@@ -118,10 +118,26 @@ makeImport () {
 .import /dev/stdin $tablename
 EOF
 }
+checkDependencies () {
+    depend gzip
+    depend python3
+    depend sqlite3
+    depend wget
+}
+depend () {
+    which $1 > /dev/null 2>&1 || die "$1 is a missing required dependency.  Install it first."
+}
+die () {
+    echo $1
+    read X
+    exit 0
+}
 
 #
 # main
 #
+
+checkDependencies
 
 # run setup
 setup
