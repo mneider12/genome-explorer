@@ -63,7 +63,7 @@ dbFile=$dbDir/project.sqlite
 setup() {
 # blow away the previous database.
     mkdir -p $dbDir
-    rm $dbFile* 2>&1 > /dev/null
+    rm $dbFile* > /dev/null 2>&1
 
     importSchemas
 }
