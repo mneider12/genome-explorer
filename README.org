@@ -55,8 +55,9 @@ We need to identify tables and create the ER diagram:
 
 - [X] Tables identified.
 - [X] ER diagram created.
-- [ ] Finish documentation of features, functionality, queries, and UI.
-- [ ] Add more constraints to ER diagram and description.
+- [X] Finish documentation of features, functionality, queries.
+- [ ] Add UI section - Mark.
+- [X] Add more constraints to ER diagram and description.
 
 ** TODO Checkpoint 3 (due 10/27)
 
