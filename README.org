@@ -42,7 +42,7 @@ Open a command window.  In the directory with this README file, run the followin
 
 ** DONE Checkpoint 1 - Grade 30/30
 
-https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing
+[[https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing][https://docs.google.com/document/d/11Z1eH0OzM--XwBi3L11mag8DigBeM1Hh_-UeI8enRmA/edit?usp=sharing]]
 
 We've created the overview document.
 
