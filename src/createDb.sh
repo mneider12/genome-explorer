@@ -15,8 +15,9 @@ importTables() {
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/Synonym.bcp.gz"
 }
 importSchemas() {
-    # import the schemas
-    # importSchema "ftp://fileName"
+# import the schemas
+
+    # download them first.
     download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_table.sql.gz"
     download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_constraint.sql.gz"
     download "ftp://ftp.ncbi.nih.gov/snp/database/shared_schema/dbSNP_main_index.sql.gz"
@@ -54,6 +55,9 @@ importSchemas() {
 # # # # # # # # # # # # # # # # # #
 dbDir=bin
 dbFile=$dbDir/project.sqlite
+downloadLogfile=$(mktemp)
+touch $downloadLogfile
+echo "Logging download data to ${downloadLogfile}."
 
 setup() {
 # blow away the previous database.
@@ -83,7 +87,7 @@ download() {
     echo -n "Downloading ${fileName}... "
     here=`pwd`
     cd $dbDir
-    wget --referer="https://github.com/NickDaly/genome-explorer" -qNc $1
+    wget --referer="https://github.com/NickDaly/genome-explorer" -Nc $1 >> $downloadLogfile 2>&1
     cd $here
     echo "Done."
 }
