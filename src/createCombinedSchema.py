@@ -92,6 +92,8 @@ if __name__ == "__main__":
         for k in tables.keys():
             if k == "dn_table_rowcount":
                 continue
+            if tables[k] == "":
+                continue
 
             output.write("""\
 CREATE TABLE [{}]

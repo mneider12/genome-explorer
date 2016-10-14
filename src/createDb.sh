@@ -33,11 +33,6 @@ importSchemas() {
     download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty2_index.sql.gz"
     download "ftp://ftp.ncbi.nih.gov/snp/database/organism_schema/human_9606/human_gty2_table.sql.gz"
 
-    # manually exclude the syntax erroring empty table SubSNPOmim.
-    gunzip bin/human_9606_table.sql.gz
-    sed -i -e "/SubSNPOmim/,+4d" bin/human_9606_table.sql
-    gzip bin/human_9606_table.sql
-
     # create unified schemas.
     src/createCombinedSchema.py "bin/dbSNP_main_table.sql.gz" "bin/dbSNP_main_constraint.sql.gz" "bin/dbSNP_main_index.sql.gz"
     src/createCombinedSchema.py "bin/human_9606_table.sql.gz" "bin/human_9606_constraint.sql.gz" "bin/human_9606_index.sql.gz"
@@ -118,10 +113,26 @@ makeImport () {
 .import /dev/stdin $tablename
 EOF
 }
+checkDependencies () {
+    depend gzip
+    depend python3
+    depend sqlite3
+    depend wget
+}
+depend () {
+    which $1 > /dev/null 2>&1 || die "$1 is a missing required dependency.  Install it first."
+}
+die () {
+    echo $1
+    read X
+    exit 0
+}
 
 #
 # main
 #
+
+checkDependencies
 
 # run setup
 setup
