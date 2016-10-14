@@ -88,7 +88,7 @@ download() {
     echo -n "Downloading ${fileName}... "
     here=`pwd`
     cd $dbDir
-    wget -qNc $1
+    wget --referer="https://github.com/NickDaly/genome-explorer" -qNc $1
     cd $here
     echo "Done."
 }
