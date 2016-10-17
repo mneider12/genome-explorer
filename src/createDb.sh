@@ -6,7 +6,7 @@ howMuch=10000
 
 importTables() {
 # do the normal table import after setting up the database
-    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/shared_data/Allele.bcp.gz" # syntax error before 500k lines.
+    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/shared_data/Allele.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/ClinSigCode.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNP.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPAlleleFreq.bcp.gz"
