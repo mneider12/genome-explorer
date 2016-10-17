@@ -105,7 +105,7 @@ importSnp () {
         head -n $howMuch | \
         sed 's/"/\\"/g' | \
         sqlite3 --init $importCommand $dbFile
-    # unzip the file, remove ", echo $thisMany lines into sqlite.
+    # unzip the file, escape ", echo $thisMany lines into sqlite.
     echo "Done."
 }
 makeImport () {
