@@ -103,9 +103,14 @@ importSnp () {
     cat "${dbDir}/${fileName}" | \
         gunzip | \
         head -n $howMuch | \
-        sed 's/"/\\"/g' | \
+        sed -e 's/"/""/g' -e 's/	/"	"/g' -e 's/^\(.*\)$/"\1"/' | \
         sqlite3 --init $importCommand $dbFile
-    # unzip the file, escape ", echo $thisMany lines into sqlite.
+	# 1. unzip the file.
+	# 2. escape ":
+	#    A. double " to escape them
+	#    B. delimit fields by "
+	#    C. wrap entire line in "
+	# 3. echo $thisMany lines into sqlite.
     echo "Done."
 }
 makeImport () {
