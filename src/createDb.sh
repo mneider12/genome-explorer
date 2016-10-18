@@ -105,13 +105,13 @@ importSnp () {
         head -n $howMuch | \
         sed -e 's/"/""/g' -e 's/	/"	"/g' -e 's/^\(.*\)$/"\1"/' | \
         sqlite3 --init $importCommand $dbFile
-	# 1. unzip the file.
-	# 2. process $thisMany lines.
-	# 3. escape ":
-	#    A. double " to escape them
-	#    B. delimit fields by "
-	#    C. wrap entire line in "
-	# 4. echo into sqlite.
+    # 1. unzip the file.
+    # 2. process $thisMany lines.
+    # 3. escape ":
+    #    A. double " to escape them
+    #    B. delimit fields by "
+    #    C. wrap entire line in "
+    # 4. echo into sqlite.
     echo "Done."
 }
 makeImport () {
