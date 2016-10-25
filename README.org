@@ -7,7 +7,7 @@
 * Prerequisites
 
 1. Install [[https://cygwin.com/][cygwin]].
-2. Install:
+2. Use cygwin to install:
    - graphviz
    - gzip
    - python3
