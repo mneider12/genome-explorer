@@ -7,12 +7,12 @@ howMuch=10000
 importTables() {
 # do the normal table import after setting up the database
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/shared_data/Allele.bcp.gz"
+    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/shared_data/UniGty.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/ClinSigCode.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNP.bcp.gz"
-    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPAlleleFreq.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPClinSig.bcp.gz"
+    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPGtyFreq.bcp.gz"
     importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/SNPPubmed.bcp.gz"
-    importSnp "ftp://ftp.ncbi.nih.gov/snp/database/organism_data/human_9606/Synonym.bcp.gz"
 }
 importSchemas() {
 # import the schemas
