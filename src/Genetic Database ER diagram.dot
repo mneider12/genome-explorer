@@ -5,9 +5,10 @@ graph g {
 	// basic nodes
 	node [style=filled]
 	// entities
-	node [shape=box color=green] SNP PubMedArticles ClinicalSignificance Allele UniGty User
+	node [shape=box color=green] SNP PubMedArticles ClinSigCode Allele UniGty User
 	// relations
-	node [shape=diamond color=lightgray] SNPAlleleFreq SNPClinSig SNPPubmed UserSNPGenotype
+	node [shape=diamond color=lightgray] SNPGtyFreq SNPClinSig SNPPubmed UserSNPGenotype
+	// removed: SNPAlleleFreq
 	
 	// attributes
 	node [shape=ellipse color=lightblue]
@@ -18,8 +19,8 @@ graph g {
 	UniGty -- {unigty_id gty_str allele_id_1 allele_id_2 create_time_unigty}
 	User -- {user_id}
 	
-	SNPAlleleFreq -- {freq}
-	UserSNPGenotype -- {chr_num position}
+	SNPGtyFreq -- {ind_cnt freq last_updated_time}
+	//removed: SNPAlleleFreq -- {freq} UserSNPGenotype -- {chr_num position}
 		
 	// primary keys (and other custom labels)
 	snp_id [label=<<u>snp_id</u>>]
@@ -32,7 +33,7 @@ graph g {
 	// undirected relations
 	SNP -- SNPPubmed -- PubMedArticles
 	ClinicalSignificance -- SNPClinSig -- SNP
-	Allele -- SNPAlleleFreq -- SNP
+	SNP -- SNPGtyFreq
 	User -- UserSNPGenotype -- UniGty
 	UserSNPGenotype -- SNP
 }
