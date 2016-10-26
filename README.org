@@ -64,14 +64,16 @@ We need to identify tables and create the ER diagram:
 
 https://docs.google.com/document/d/1dYJqh1c9UnNLvgrt5KcjDFYkjHULCN4H0hjT049A4qs/edit?usp=sharing
 
-- [ ] Update relational schema - Becky.
-- [ ] Update diagram .dot file and diagram image - Becky.
-- [ ] Update createDb script for new/removed tables - Becky.
-- [ ] Update createDb script to create UserSNPGenotype (not needed for checkpoint) - Nick.
+- [X] Update relational schema - Becky.
+- [X] Update diagram .dot file and diagram image - Becky.
+- [X] Update createDb script for new/removed tables - Becky.
 
 ** TODO Checkpoint 4 (due 11/17)
 
 https://docs.google.com/document/d/11SSkbGrPP14u647pHf5v-dFdvDMoR8HHPd5Uqig1cSY/edit?usp=sharing
+
+- [ ] Create draft UI to start running SQL queries from Java - Mark.
+- [ ] Update createDb script to create UserSNPGenotype (not needed for checkpoint) - Nick.
 
 * Outline of Schema and Tables
 
