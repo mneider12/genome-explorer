@@ -7,7 +7,7 @@ graph g {
 	// entities
 	node [shape=box color=green] SNP PubMedArticles ClinSigCode Allele UniGty User
 	// relations
-	node [shape=diamond color=lightgray] SNPGtyFreq SNPClinSig SNPPubmed UserSNPGenotype
+	node [shape=diamond color=lightgray] SNPGtyFreq SNPClinSig SNPPubmed GenotypeAlleles UserSNPGenotype
 	// removed: SNPAlleleFreq
 	
 	// attributes
@@ -31,9 +31,11 @@ graph g {
 	user_id [label=<<u>user_id</u>>]
 	
 	// undirected relations
-	SNP -- SNPPubmed -- PubMedArticles
 	ClinSigCode -- SNPClinSig -- SNP
-	SNP -- SNPGtyFreq -- UniGty
-	User -- UserSNPGenotype -- UniGty
+	SNP -- SNPPubmed -- PubMedArticles
+	User -- UserSNPGenotype
 	SNP -- UserSNPGenotype -- UniGty
+	SNP -- SNPGtyFreq -- UniGty
+	//removed: Allele -- SNPAlleleFreq -- SNP
+	Allele -- GenotypeAlleles -- UniGty
 }
