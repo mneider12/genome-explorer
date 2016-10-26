@@ -14,7 +14,7 @@ graph g {
 	node [shape=ellipse color=lightblue]
 	SNP -- {snp_id avg_heterozygosity het_se create_time_snp last_updated_time_snp CpG_code tax_id validation_status exemplar_subsnp_id univar_id cnt_subsnp map_property}
 	PubMedArticles -- {pubmed_id type score upd_time}
-	ClinicalSignificance -- {code abbrev descrip create_time_clinsig last_updated_time_clinsig severity_level}
+	ClinSigCode -- {code abbrev descrip create_time_clinsig last_updated_time_clinsig severity_level}
 	Allele -- {allele_id allele create_time_allele rev_allele_id src last_updated_time_allele}
 	UniGty -- {unigty_id gty_str allele_id_1 allele_id_2 create_time_unigty}
 	User -- {user_id}
@@ -32,8 +32,8 @@ graph g {
 	
 	// undirected relations
 	SNP -- SNPPubmed -- PubMedArticles
-	ClinicalSignificance -- SNPClinSig -- SNP
-	SNP -- SNPGtyFreq
+	ClinSigCode -- SNPClinSig -- SNP
+	SNP -- SNPGtyFreq -- UniGty
 	User -- UserSNPGenotype -- UniGty
-	UserSNPGenotype -- SNP
+	SNP -- UserSNPGenotype -- UniGty
 }
