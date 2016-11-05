@@ -47,6 +47,10 @@ importSchemas() {
     importSchemaFile human_9606.sql
     importSchemaFile human_gty1.sql
     importSchemaFile human_gty2.sql
+
+    # import custom schemas.
+    cp src/createCustomTables.sql bin/createCustomTables.sql
+    importSchemaFile createCustomTables.sql
 }
 
 
