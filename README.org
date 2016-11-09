@@ -48,9 +48,11 @@ We've created the overview document.
 
 Feedback from professor:  This is a well-written proposal. The dataset is very well-chosen and tasks are focused enough so that we don't get lost in the size of data. It is very good that you are aware of the gaps in the data which may create challenges in the assessment. For the assessment, I would recommend we define some criteria where the "interesting" traits are defined (my understanding from the write-up: interesting = common trait" while in my thought, interesting = uncommon trait"). Also a set of scenarios with inputs and expected outputs would help us in evaluation.
 
-** DONE Checkpoint 2 (due 10/13)
+** DONE Checkpoint 2  - Grade 40/40
 
 https://docs.google.com/document/d/19jVVghHHxMClzC_J8lViPCmsw4nvFJ-cPNXOxt6plcU/edit?usp=sharing
+
+Feedback from professor:  Excellent write-up and details of the design as well as each entity and relationship. The ER diagram reflects the goals of the project closely.
 
 We need to identify tables and create the ER diagram:
 
@@ -60,7 +62,7 @@ We need to identify tables and create the ER diagram:
 - [X] Add UI section - Mark.
 - [X] Add more constraints to ER diagram and description.
 
-** TODO Checkpoint 3 (due 10/27)
+** DONE Checkpoint 3 - turned in
 
 https://docs.google.com/document/d/1dYJqh1c9UnNLvgrt5KcjDFYkjHULCN4H0hjT049A4qs/edit?usp=sharing
 
@@ -74,6 +76,7 @@ https://docs.google.com/document/d/11SSkbGrPP14u647pHf5v-dFdvDMoR8HHPd5Uqig1cSY/
 
 - [ ] Create draft UI to start running SQL queries from Java - Mark.
 - [X] Update createDb script to create UserSNPGenotype (not needed for checkpoint) - Nick.
+- [ ] Create lots of cool queries.
 
 * Outline of Schema and Tables
 
