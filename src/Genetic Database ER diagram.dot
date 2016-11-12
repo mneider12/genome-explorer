@@ -2,6 +2,8 @@
 //   neato -Goverlap=prism -Tpng object-relations.dot
 
 graph g {
+	rankdir=LR
+
 	// basic nodes
 	node [style=filled]
 	// entities
