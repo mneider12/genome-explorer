@@ -66,7 +66,7 @@ echo "Logging download data to ${downloadLogfile}."
 setup() {
 # blow away the previous database.
     mkdir -p $dbDir
-    rm $dbFile* > /dev/null 2>&1
+    rm $dbFile > /dev/null 2>&1
 
     importSchemas
 }
